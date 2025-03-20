@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 80f4313b9b1f9c24391b6e09b1cdd4df
+guid: b7bafaa681d3dd24b848179c5dac495f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 915477455250847738
-    second: Rocket Ship No Booster_0
+      213: -186686454602257839
+    second: RSNB 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rocket Ship No Booster_0
+      name: RSNB 1_0
       rect:
         serializedVersion: 2
         x: 25
@@ -108,15 +108,15 @@ TextureImporter:
         width: 23
         height: 97
       alignment: 9
-      pivot: {x: 0.50765276, y: 0.81551564}
+      pivot: {x: 0.5014131, y: 0.83331746}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af7fa1825ed64bc00800000000000000
-      internalID: 915477455250847738
+      spriteID: 15a2e0d98a1c86df0800000000000000
+      internalID: -186686454602257839
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b395165a249bd3f48abad8b44fcee8c0
+    spriteID: 2bc3b7abb3b45b343a77f1ed62e87e06
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Rocket Ship No Booster_0: 915477455250847738
+      RSNB 1_0: -186686454602257839
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

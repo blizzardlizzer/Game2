@@ -10,14 +10,13 @@ public class PlayerMovement : MonoBehaviour
     public float drag = 0.98f; // Friction for drift
     public float rotationFactor = 20f; // Rotation based on acceleration
     public float rotationSmoothing = 5.0f; // Smoothing factor for rotation lerp
-    public float waitTime = 5.0f;
 
     private float velocity = 0.0f;
     private float input;
     private bool hasStarted = false;
     private bool isWaiting = false;
     private bool isDead = false;
-    private bool canRestart = false;
+    private bool canRestart = false; // Allows restart after death
     private float currentAcceleration = 0.0f;
     private float targetRotation = 0.0f;
     private float smoothRotation = 0.0f;
@@ -29,15 +28,30 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI centerText;
     private Rigidbody2D rb;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioSource loopingSource;
+    public AudioClip countdownThree;
+    public AudioClip countdownTwo;
+    public AudioClip countdownOne;
+    public AudioClip ignition;
+    public AudioClip weHaveLiftoff;
+    public AudioClip rocketLaunch;
+    public AudioClip rocketLoop;
+    public float rocketLoopVolume = 0.5f;
+
     void Start()
     {
         spriteRenderer.sprite = noBoosterSprite; // Show og sprite at start
         animator.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
-        centerText.text = "Press any key to LIFTOFF!!";
+        loopingSource.enabled = false;
+        loopingSource.loop = true;
+        loopingSource.volume = rocketLoopVolume;
 
         Debug.Log("Player initialized.");
+        centerText.text = "Press any key to LIFTOFF!!";
     }
 
     void Update()
@@ -48,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 RestartGame();
             }
-            centerText.text = "You went BLAM!";
             return;
         }
         
@@ -57,8 +70,8 @@ public class PlayerMovement : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 hasStarted = true;
-                StartCoroutine(StartDelay());
-                Debug.Log($"Game started, waiting for {waitTime} seconds.");
+                StartCoroutine(StartCountdown());
+                Debug.Log("Game started, waiting for countdown.");
             }
             return;
         }
@@ -99,20 +112,33 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Velocity: " + velocity);
     }
 
-    private System.Collections.IEnumerator StartDelay()
+    private System.Collections.IEnumerator StartCountdown()
     {
         isWaiting = true;
-        centerText.text = "3";
+        audioSource.PlayOneShot(countdownThree);
+        centerText.text = "THREE";
         yield return new WaitForSeconds(1f);
-        centerText.text = "2";
+
+        audioSource.PlayOneShot(countdownTwo);
+        centerText.text = "TWO";
         yield return new WaitForSeconds(1f);
-        centerText.text = "1";
+
+        audioSource.PlayOneShot(countdownOne);
+        centerText.text = "ONE";
         yield return new WaitForSeconds(1f);
-        centerText.text = "LIFTOFF!!!";
-        animator.enabled = true; // Start animation
-        yield return new WaitForSeconds(1.2f);
-        centerText.text = "";
+
+        audioSource.PlayOneShot(ignition);
+        audioSource.PlayOneShot(rocketLaunch);
+        animator.enabled = true;
+        centerText.text = "LIFTOFF!";
+        yield return new WaitForSeconds(5f);
+
         isWaiting = false;
+        audioSource.PlayOneShot(weHaveLiftoff);
+        loopingSource.clip = rocketLoop;
+        loopingSource.enabled = true;
+        loopingSource.Play();
+        centerText.text = "";
         Debug.Log("Player can now move.");
     }
 
@@ -123,15 +149,17 @@ public class PlayerMovement : MonoBehaviour
             velocity = 0;
             isDead = true;
             animator.Play("Death"); // Placeholder animation
-            Debug.Log($"Player hit [{collision.gameObject.name}] border and died!");
+            loopingSource.enabled = false;
+            Debug.Log("Player hit border and died: " + collision.gameObject.name);
             StartCoroutine(EnableRestart());
         }
     }
 
     private System.Collections.IEnumerator EnableRestart()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.5f);
         canRestart = true;
+        Debug.Log("Press any key to restart.");
     }
 
     private void RestartGame()
