@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement; // For restarting the scene
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     public Animator animator;
     public SpriteRenderer spriteRenderer;
-    public Sprite noBoosterSprite;
     public TextMeshProUGUI centerText;
+    public BackgroundMover gameBackground;
     private Rigidbody2D rb;
 
     [Header("Audio")]
@@ -38,17 +38,16 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip weHaveLiftoff;
     public AudioClip rocketLaunch;
     public AudioClip rocketLoop;
-    public float rocketLoopVolume = 0.5f;
 
     void Start()
     {
-        spriteRenderer.sprite = noBoosterSprite; // Show og sprite at start
         animator.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
-        loopingSource.enabled = false;
-        loopingSource.loop = true;
-        loopingSource.volume = rocketLoopVolume;
+        // Technically theres no sound in space right?
+        // loopingSource.enabled = false;
+        // loopingSource.loop = true;
+        // loopingSource.volume = 0.5f;
 
         Debug.Log("Player initialized.");
         centerText.text = "Press any key to LIFTOFF!!";
@@ -79,9 +78,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isWaiting)
         {
             input = Input.GetAxis("Horizontal");
-
-            if (input != 0)
-                Debug.Log("Player input detected: " + input);
         }
     }
 
@@ -108,8 +104,6 @@ public class PlayerMovement : MonoBehaviour
         targetRotation = -currentAcceleration * rotationFactor;
         smoothRotation = Mathf.Lerp(smoothRotation, targetRotation, Time.fixedDeltaTime * rotationSmoothing);
         transform.rotation = Quaternion.Euler(0, 0, smoothRotation);
-
-        Debug.Log("Velocity: " + velocity);
     }
 
     private System.Collections.IEnumerator StartCountdown()
@@ -128,18 +122,35 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         audioSource.PlayOneShot(ignition);
+        centerText.text = "LIFTOFF!";
+        yield return StartCoroutine(MoveDownOverTime(-3f, 3f));
+    }
+
+    private System.Collections.IEnumerator MoveDownOverTime(float targetY, float duration)
+    {
         audioSource.PlayOneShot(rocketLaunch);
         animator.enabled = true;
-        centerText.text = "LIFTOFF!";
-        yield return new WaitForSeconds(5f);
-
+        yield return new WaitForSeconds(0.75f);
+        gameBackground.StartMoving();
+        float elapsedTime = 0f;
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = new Vector3(startPos.x, targetY, startPos.z);
+        
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, targetPos, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetPos;
+        yield return new WaitForSeconds(2f);
         isWaiting = false;
         audioSource.PlayOneShot(weHaveLiftoff);
-        loopingSource.clip = rocketLoop;
-        loopingSource.enabled = true;
-        loopingSource.Play();
+        // Again, no sound in space right? (It sounds like crap)
+        // loopingSource.clip = rocketLoop;
+        // loopingSource.enabled = true;
+        // loopingSource.Play();
         centerText.text = "";
-        Debug.Log("Player can now move.");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -149,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
             velocity = 0;
             isDead = true;
             animator.Play("Death"); // Placeholder animation
-            loopingSource.enabled = false;
             Debug.Log("Player hit border and died: " + collision.gameObject.name);
             StartCoroutine(EnableRestart());
         }
@@ -159,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         canRestart = true;
-        Debug.Log("Press any key to restart.");
     }
 
     private void RestartGame()
