@@ -271,6 +271,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 9200336309018366164, guid: 820a74e378675504f8c4af0bdf978a18, type: 3}
   fallSpeed: 2
+  asteroidSprites:
+  - {fileID: 7040748835550671450, guid: 05d39be17c3f0ae4ab19856e72ed7671, type: 3}
+  - {fileID: -4774772973586904099, guid: ec03d27e6dc0b7b46810ca9f8d20f97c, type: 3}
+  - {fileID: -2391671638661420546, guid: b2a02478335d119449219beb9b91450b, type: 3}
+  - {fileID: -1385293215896371693, guid: e43fe1d3c1108fc44ac9da7f6d95316b, type: 3}
+  - {fileID: 2007312266919236445, guid: aec98009135345e4897410ed48b9852f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
