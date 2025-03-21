@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public TextMeshProUGUI centerText;
     public BackgroundMover gameBackground;
+    public ObjectFallController objectController;
     private Rigidbody2D rb;
 
     [Header("Audio")]
@@ -151,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
         // loopingSource.enabled = true;
         // loopingSource.Play();
         centerText.text = "";
+        objectController.StartFall();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -161,6 +163,12 @@ public class PlayerMovement : MonoBehaviour
             isDead = true;
             animator.Play("Death"); // Placeholder animation
             Debug.Log("Player hit border and died: " + collision.gameObject.name);
+            StartCoroutine(EnableRestart());
+        } else if (collision.gameObject.CompareTag("Hazard")){
+            velocity = 0;
+            isDead = true;
+            animator.Play("Death"); // Placeholder animation
+            Debug.Log("Player hit object and died: " + collision.gameObject.name);
             StartCoroutine(EnableRestart());
         }
     }
