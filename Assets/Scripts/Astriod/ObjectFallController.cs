@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ObjectFallController : MonoBehaviour
 {
-    public float waitTime = 0.25f;
+    public float waitTime = 1.5f;
     public GameObject fallingObject;
     public float fallSpeed = 2f;
     public Sprite[] asteroidSprites;
     public Sprite fastAsteroidSprite;
 
-    // Start is called before the first frame update
     public void StartFall()
     {
             InvokeRepeating("Fall", waitTime, waitTime);
@@ -27,18 +26,16 @@ public class ObjectFallController : MonoBehaviour
             Sprite selectedSprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
             spriteRenderer.sprite = selectedSprite;
 
-            // Access the FallingObject script and set the fall speed
             FallingObject fallingScript = fallingObject.GetComponent<FallingObject>();
             if (fallingScript != null)
             {
-                // Check if it's the fast asteroid and set speed accordingly
                 if (selectedSprite == fastAsteroidSprite)
                 {
-                    fallingScript.fallSpeed = 10f;  // Set faster speed
+                    fallingScript.fallSpeed = 10f;
                 }
                 else
                 {
-                    fallingScript.fallSpeed = fallSpeed;  // Set normal speed
+                    fallingScript.fallSpeed = fallSpeed;
                 }
             }
         }
