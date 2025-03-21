@@ -949,7 +949,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 1.5
-  fallingObject: {fileID: 9200336309018366164, guid: 820a74e378675504f8c4af0bdf978a18, type: 3}
+  fallingObject: {fileID: 9200336309018366164, guid: b032c5975d1b17948a89d85157c94419, type: 3}
+  fallSpeed: 2
+  asteroidSprites: []
+  fastAsteroidSprite: {fileID: 0}
 --- !u!1 &1383535157
 GameObject:
   m_ObjectHideFlags: 0
