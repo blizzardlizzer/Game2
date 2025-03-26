@@ -12,13 +12,16 @@ public class PowerUpMovement : MonoBehaviour
     private float spriteWidth,
         spriteHeight;
 
+    public int spawnDelay = 30;
+
     void Start()
     {
         // Get screen edges in world coordinates
-        screenLeft = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
-        screenRight = Camera.main.ViewportToWorldPoint(Vector3.one).x;
+        screenLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, 0)).x;
+        screenRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 0)).x;
         screenTop = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 1, 0)).y;
         screenBottom = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, 0)).y;
+
 
         // Get sprite width and height
         spriteWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
@@ -37,28 +40,44 @@ public class PowerUpMovement : MonoBehaviour
         // Move up and down (Y axis)
         transform.position += Vector3.up * speed * directionY * Time.deltaTime;
 
-        // Check if it hits the screen edges on the X axis
-        if (
-            transform.position.x + spriteWidth > screenRight
-            || transform.position.x - spriteWidth < screenLeft
-        )
+        // Change directions and move slightly so the sprite does not get stuck on the edge
+        if (transform.position.x + spriteWidth > screenRight)
         {
-            directionX *= -1; // Reverse direction on X axis
+            transform.position = new Vector3(screenRight - spriteWidth, transform.position.y, transform.position.z);
+            directionX *= -1;
+        }
+        else if (transform.position.x - spriteWidth < screenLeft)
+        {
+            transform.position = new Vector3(screenLeft + spriteWidth, transform.position.y, transform.position.z);
+            directionX *= -1;
         }
 
-        // Check if it hits the screen edges on the Y axis
-        if (
-            transform.position.y + spriteHeight > screenTop
-            || transform.position.y - spriteHeight < screenBottom
-        )
+        if (transform.position.y + spriteHeight > screenTop)
         {
-            directionY *= -1; // Reverse direction on Y axis
+            transform.position = new Vector3(transform.position.x, screenTop - spriteHeight, transform.position.z);
+            directionY *= -1;
         }
+        else if (transform.position.y - spriteHeight < screenBottom)
+        {
+            transform.position = new Vector3(transform.position.x, screenBottom + spriteHeight, transform.position.z);
+            directionY *= -1;
+        }
+
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
+    
+    void OnTriggerEnter2D(Collider2D other)
     {
-        // Log the name of the object we collided with
-        Debug.Log("Collided with: " + collision.gameObject.name);
+        if (other.CompareTag("Player")) // Make sure the player has the "Player" tag
+        {
+            
+            PlayerMovement player = other.GetComponent<PlayerMovement>(); // Get the PlayerController script
+            if (player != null)
+            {
+                player.acceleration *= 2; // Increase player speed by 2
+            }
+
+            Debug.Log("Power-up collected! Speed boosted.");
+            Destroy(gameObject); // Destroy the power-up
+        }
     }
 }
