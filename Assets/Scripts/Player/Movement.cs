@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int health = 3;
+    public int maxHealth = 3;
+    private int health = 3;
 
     [Header("Movement")]
     public float acceleration = 2.0f;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public BackgroundMover gameBackground;
     public ObjectFallController objectController;
     public Transform cameraTransform;
+    public Timer timer;
     private Rigidbody2D rb;
 
     [Header("Audio")]
@@ -59,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
             velocity = 0;
             isDead = true;
             animator.Play("RSD");
+            timer.StopStopwatch();
             StartCoroutine(EnableRestart());
         }
 
@@ -153,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         isWaiting = false;
         audioSource.PlayOneShot(weHaveLiftoff);
         centerText.text = "";
+        timer.StartStopwatch();
         objectController.StartSpawning();
     }
 
@@ -212,5 +216,9 @@ public class PlayerMovement : MonoBehaviour
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public int GetHealth(){
+        return health;
     }
 }
