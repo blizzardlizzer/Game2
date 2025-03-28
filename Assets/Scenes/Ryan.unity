@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4199187ba8b03b0f58da2cd8484ea2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpPrefab: {fileID: 1242920332181220717, guid: 309c49cab9a723957a6869e6e15006e2, type: 3}
   speed: 5
 --- !u!50 &636437830
 Rigidbody2D:

@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public class PowerUpMovement : MonoBehaviour
 {
+    public GameObject powerUpPrefab;
+
     public float speed = 3f; // Movement speed
     private int directionX; // 1 = Right, -1 = Left
     private int directionY; // 1 = Up, -1 = Down
@@ -11,8 +14,6 @@ public class PowerUpMovement : MonoBehaviour
         screenBottom;
     private float spriteWidth,
         spriteHeight;
-
-    public int spawnDelay = 30;
 
     void Start()
     {
@@ -30,6 +31,8 @@ public class PowerUpMovement : MonoBehaviour
         // Start with a random direction on both axes
         directionX = Random.Range(0, 2) == 0 ? 1 : -1; // Randomly choose 1 (Right) or -1 (Left)
         directionY = Random.Range(0, 2) == 0 ? 1 : -1; // Randomly choose 1 (Up) or -1 (Down)
+
+        StartCoroutine(SpawnPowerUp());
     }
 
     void Update()
@@ -67,17 +70,28 @@ public class PowerUpMovement : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // Make sure the player has the "Player" tag
+        if (other.CompareTag("Player"))
         {
             
             PlayerMovement player = other.GetComponent<PlayerMovement>(); // Get the PlayerController script
             if (player != null)
             {
-                player.acceleration *= 2; // Increase player speed by 2
+                player.acceleration *= 2;
+                player.maxSpeed += 2; 
             }
 
             Debug.Log("Power-up collected! Speed boosted.");
-            Destroy(gameObject); // Destroy the power-up
+
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator SpawnPowerUp()
+    {
+        while (true) {
+            yield return new WaitForSeconds(5);
+            Instantiate(powerUpPrefab, Vector3.zero, Quaternion.identity);
+            Debug.Log("Spawned powerup");
         }
     }
 }
