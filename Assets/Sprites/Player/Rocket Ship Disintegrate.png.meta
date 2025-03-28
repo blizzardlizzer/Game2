@@ -1,0 +1,332 @@
+fileFormatVersion: 2
+guid: c49fb96862e51f346826e05d3a194dc0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3311739019909672599
+    second: Rocket Ship Disintegrate_0
+  - first:
+      213: -5648429084583884189
+    second: Rocket Ship Disintegrate_1
+  - first:
+      213: -3149987426476384088
+    second: Rocket Ship Disintegrate_2
+  - first:
+      213: 1817308590433721043
+    second: Rocket Ship Disintegrate_3
+  - first:
+      213: 4213025100565632486
+    second: Rocket Ship Disintegrate_4
+  - first:
+      213: 1773307285670761529
+    second: Rocket Ship Disintegrate_5
+  - first:
+      213: -141032119112299109
+    second: Rocket Ship Disintegrate_6
+  - first:
+      213: 1976822661985313300
+    second: Rocket Ship Disintegrate_7
+  - first:
+      213: 2031762136739517155
+    second: Rocket Ship Disintegrate_8
+  - first:
+      213: 2945690357492703981
+    second: Rocket Ship Disintegrate_9
+  - first:
+      213: 6231886200668752688
+    second: Rocket Ship Disintegrate_10
+  - first:
+      213: 5784071261729922633
+    second: Rocket Ship Disintegrate_11
+  - first:
+      213: -1482006947121157699
+    second: Rocket Ship Disintegrate_12
+  - first:
+      213: -5857426754476558515
+    second: Rocket Ship Disintegrate_13
+  - first:
+      213: -1191717910235591387
+    second: Rocket Ship Disintegrate_14
+  - first:
+      213: 391068011567627644
+    second: Rocket Ship Disintegrate_15
+  - first:
+      213: -8070611766834718576
+    second: Rocket Ship Disintegrate_16
+  - first:
+      213: 4970054776943052956
+    second: Rocket Ship Disintegrate_17
+  - first:
+      213: -5846106797212375428
+    second: Rocket Ship Disintegrate_18
+  - first:
+      213: -7249707021518888525
+    second: Rocket Ship Disintegrate_19
+  - first:
+      213: -985018002037439973
+    second: Rocket Ship Disintegrate_20
+  - first:
+      213: -6031918657678495074
+    second: Rocket Ship Disintegrate_21
+  - first:
+      213: 1493566555417044210
+    second: Rocket Ship Disintegrate_22
+  - first:
+      213: -5302716822851574423
+    second: Rocket Ship Disintegrate_23
+  - first:
+      213: -8538516388326964937
+    second: Rocket Ship Disintegrate_24
+  - first:
+      213: 6952239012042778769
+    second: Rocket Ship Disintegrate_25
+  - first:
+      213: -1223650002800435792
+    second: Rocket Ship Disintegrate_26
+  - first:
+      213: -5737702746766317475
+    second: Rocket Ship Disintegrate_27
+  - first:
+      213: -3545569350402306524
+    second: Rocket Ship Disintegrate_28
+  - first:
+      213: -6175486134958904908
+    second: Rocket Ship Disintegrate_29
+  - first:
+      213: 8980409454882123154
+    second: Rocket Ship Disintegrate_30
+  - first:
+      213: 7008668083850396202
+    second: Rocket Ship Disintegrate_31
+  - first:
+      213: 1351820373706766452
+    second: Rocket Ship Disintegrate_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Rocket Ship Disintegrate_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 97
+        width: 73
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e248e9719a5fd20800000000000000
+      internalID: 3311739019909672599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocket Ship Disintegrate_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 97
+        width: 73
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36a846a9cafbc91b0800000000000000
+      internalID: -5648429084583884189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocket Ship Disintegrate_2
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 97
+        width: 73
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a0adedff1ff844d0800000000000000
+      internalID: -3149987426476384088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocket Ship Disintegrate_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 73
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3da5114d880683910800000000000000
+      internalID: 1817308590433721043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocket Ship Disintegrate_4
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 0
+        width: 73
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbbbcdb008bb43c4b9f492b68a1246f5
+      internalID: 4213025100565632486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3f907dbc5dc89d944bbf71fbb364839c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Rocket Ship Disintegrate_0: 3311739019909672599
+      Rocket Ship Disintegrate_1: -5648429084583884189
+      Rocket Ship Disintegrate_2: -3149987426476384088
+      Rocket Ship Disintegrate_3: 1817308590433721043
+      Rocket Ship Disintegrate_4: 4213025100565632486
+      Rocket Ship Disintegrate_5: 86177900
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

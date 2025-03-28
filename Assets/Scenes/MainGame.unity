@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2871ea150dfe84b438a97a94a3a9e4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
   acceleration: 5
   maxSpeed: 20
   drag: 0.96
@@ -385,6 +386,7 @@ MonoBehaviour:
   centerText: {fileID: 907862786}
   gameBackground: {fileID: 1500183660}
   objectController: {fileID: 1322581735}
+  cameraTransform: {fileID: 1383535160}
   audioSource: {fileID: 837519167}
   loopingSource: {fileID: 0}
   countdownThree: {fileID: 8300000, guid: 41ddb557ca7e7164a8045761b62867c0, type: 3}
@@ -850,15 +852,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fc67b4e9bf5944299e823d33fefd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 1.5
-  fallingObject: {fileID: 9200336309018366164, guid: 7f693da0467b8d64eaac399e6778f571, type: 3}
-  fallSpeed: 2
-  asteroidSprites:
-  - {fileID: -4774772973586904099, guid: ec03d27e6dc0b7b46810ca9f8d20f97c, type: 3}
-  - {fileID: 7040748835550671450, guid: 05d39be17c3f0ae4ab19856e72ed7671, type: 3}
-  - {fileID: -2391671638661420546, guid: b2a02478335d119449219beb9b91450b, type: 3}
-  - {fileID: -1385293215896371693, guid: e43fe1d3c1108fc44ac9da7f6d95316b, type: 3}
-  fastAsteroidSprite: {fileID: 2007312266919236445, guid: aec98009135345e4897410ed48b9852f, type: 3}
+  fallingPrefabs:
+  - {fileID: 9200336309018366164, guid: 7f693da0467b8d64eaac399e6778f571, type: 3}
+  initialMinWait: 1.25
+  initialMaxWait: 2.7
+  difficultyRampRate: 0.05
+  minWaitLimit: 0.5
 --- !u!1 &1383535157
 GameObject:
   m_ObjectHideFlags: 0

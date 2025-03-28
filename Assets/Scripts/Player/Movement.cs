@@ -4,22 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int health = 3;
+
     [Header("Movement")]
     public float acceleration = 2.0f;
     public float maxSpeed = 5.0f;
-    public float drag = 0.98f; // Friction for drift
-    public float rotationFactor = 20f; // Rotation based on acceleration
-    public float rotationSmoothing = 5.0f; // Smoothing factor for rotation lerp
+    public float drag = 0.98f;
+    public float rotationFactor = 20f;
+    public float rotationSmoothing = 5.0f;
 
     private float velocity = 0.0f;
     private float input;
     private bool hasStarted = false;
     private bool isWaiting = false;
     private bool isDead = false;
-    private bool canRestart = false; // Allows restart after death
+    private bool canRestart = false;
     private float currentAcceleration = 0.0f;
     private float targetRotation = 0.0f;
     private float smoothRotation = 0.0f;
+    private bool isInvincible = false;
 
     [Header("References")]
     public Animator animator;
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI centerText;
     public BackgroundMover gameBackground;
     public ObjectFallController objectController;
+    public Transform cameraTransform;
     private Rigidbody2D rb;
 
     [Header("Audio")]
@@ -45,17 +49,19 @@ public class PlayerMovement : MonoBehaviour
         animator.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
-        // Technically theres no sound in space right?
-        // loopingSource.enabled = false;
-        // loopingSource.loop = true;
-        // loopingSource.volume = 0.5f;
-
-        Debug.Log("Player initialized.");
         centerText.text = "Press any key to LIFTOFF!!";
     }
 
     void Update()
     {
+        if (health <= 0 && !isDead)
+        {
+            velocity = 0;
+            isDead = true;
+            animator.Play("RSD");
+            StartCoroutine(EnableRestart());
+        }
+
         if (isDead)
         {
             if (canRestart && Input.anyKeyDown)
@@ -64,14 +70,13 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
-        
+
         if (!hasStarted)
         {
             if (Input.anyKeyDown)
             {
                 hasStarted = true;
                 StartCoroutine(StartCountdown());
-                Debug.Log("Game started, waiting for countdown.");
             }
             return;
         }
@@ -136,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startPos = transform.position;
         Vector3 targetPos = new Vector3(startPos.x, targetY, startPos.z);
-        
+
         while (elapsedTime < duration)
         {
             transform.position = Vector3.Lerp(startPos, targetPos, elapsedTime / duration);
@@ -147,30 +152,55 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f);
         isWaiting = false;
         audioSource.PlayOneShot(weHaveLiftoff);
-        // Again, no sound in space right? (It sounds like crap)
-        // loopingSource.clip = rocketLoop;
-        // loopingSource.enabled = true;
-        // loopingSource.Play();
         centerText.text = "";
-        objectController.StartFall();
+        objectController.StartSpawning();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Border"))
         {
-            velocity = 0;
-            isDead = true;
-            animator.Play("Death"); // Placeholder animation
-            Debug.Log("Player hit border and died: " + collision.gameObject.name);
-            StartCoroutine(EnableRestart());
-        } else if (collision.gameObject.CompareTag("Hazard")){
-            velocity = 0;
-            isDead = true;
-            animator.Play("Death"); // Placeholder animation
-            Debug.Log("Player hit object and died: " + collision.gameObject.name);
-            StartCoroutine(EnableRestart());
+            health -= 9999999;
         }
+        else if (collision.gameObject.CompareTag("Hazard") && !isInvincible)
+        {
+            health--;
+            StartCoroutine(FlashDamage());
+        }
+    }
+
+    private System.Collections.IEnumerator FlashDamage()
+    {
+        isInvincible = true;
+        StartCoroutine(ScreenShake());
+
+        for (int i = 0; i < 6; i++)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        spriteRenderer.enabled = true;
+        isInvincible = false;
+    }
+
+    private System.Collections.IEnumerator ScreenShake()
+    {
+        Vector3 originalPos = cameraTransform.position;
+        float duration = 0.3f;
+        float magnitude = 0.15f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float offsetX = Random.Range(-1f, 1f) * magnitude;
+            float offsetY = Random.Range(-1f, 1f) * magnitude;
+            cameraTransform.position = originalPos + new Vector3(offsetX, offsetY, 0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        cameraTransform.position = originalPos;
     }
 
     private System.Collections.IEnumerator EnableRestart()

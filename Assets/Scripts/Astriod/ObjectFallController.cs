@@ -1,45 +1,58 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectFallController : MonoBehaviour
 {
-    public float waitTime = 1.5f;
-    public GameObject fallingObject;
-    public float fallSpeed;
-    public Sprite[] asteroidSprites;
-    public Sprite fastAsteroidSprite;
+    [Header("Spawning Settings")]
+    public GameObject[] fallingPrefabs; 
+    public float initialMinWait = 1.5f;
+    public float initialMaxWait = 3.0f;
+    public float difficultyRampRate = 0.05f; 
+    public float minWaitLimit = 0.5f; 
 
-    public void StartFall()
+    private float currentMinWait;
+    private float currentMaxWait;
+    private bool isSpawning = false;
+
+    void Start()
     {
-            InvokeRepeating("Fall", waitTime, waitTime);
+        currentMinWait = initialMinWait;
+        currentMaxWait = initialMaxWait;
     }
 
-
-    void Fall()
+    public void StartSpawning()
     {
-        GameObject obj = Instantiate(fallingObject, new Vector3(Random.Range(-10, 10), 10, 0), Quaternion.identity);
-
-        SpriteRenderer spriteRenderer = fallingObject.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && asteroidSprites.Length > 0)
+        if (!isSpawning)
         {
-            Sprite selectedSprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
-            spriteRenderer.sprite = selectedSprite;
-
-            FallingObject fallingScript = fallingObject.GetComponent<FallingObject>();
-            if (fallingScript != null)
-            {
-                if (selectedSprite == fastAsteroidSprite)
-                {
-                    fallingScript.fallSpeed += 4f;
-                }
-                else
-                {
-                    fallingScript.fallSpeed = fallSpeed;
-                }
-            }
+            isSpawning = true;
+            StartCoroutine(SpawnRoutine());
         }
     }
+
+    IEnumerator SpawnRoutine()
+    {
+        while (isSpawning)
+        {
+            float waitTime = Random.Range(currentMinWait, currentMaxWait);
+            yield return new WaitForSeconds(waitTime);
+
+            SpawnObject();
+
+            currentMinWait = Mathf.Max(minWaitLimit, currentMinWait - difficultyRampRate);
+            currentMaxWait = Mathf.Max(minWaitLimit + 0.1f, currentMaxWait - difficultyRampRate);
+        }
     }
 
+    void SpawnObject()
+    {
+        Vector3 spawnPosition = new Vector3(Random.Range(-10f, 10f), 10f, 0f);
+        int randomIndex = Random.Range(0, fallingPrefabs.Length);
 
+        GameObject obj = Instantiate(fallingPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+
+        if (obj.TryGetComponent<FallingObject>(out FallingObject falling))
+        {
+            falling.fallSpeed += Random.Range(-2f, 2f);
+        }
+    }
+}
