@@ -52,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
         centerText.text = "Press any key to LIFTOFF!!";
+
+        acceleration = 2.0f;
+        maxSpeed = 5.0f; // reset after powerup
     }
 
     void Update()
