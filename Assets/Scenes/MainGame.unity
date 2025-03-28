@@ -1092,7 +1092,7 @@ MonoBehaviour:
   - {fileID: 9200336309018366164, guid: 7f693da0467b8d64eaac399e6778f571, type: 3}
   initialMinWait: 1.25
   initialMaxWait: 2.7
-  difficultyRampRate: 0.01
+  difficultyRampRate: 0.05
   minWaitLimit: 0.25
 --- !u!1 &1383535157
 GameObject:
