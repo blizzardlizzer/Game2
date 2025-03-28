@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 1.5
-  fallingObject: {fileID: 9200336309018366164, guid: 820a74e378675504f8c4af0bdf978a18, type: 3}
+  fallingObject: {fileID: 9200336309018366164, guid: 7f693da0467b8d64eaac399e6778f571, type: 3}
   fallSpeed: 2
   asteroidSprites:
   - {fileID: -4774772973586904099, guid: ec03d27e6dc0b7b46810ca9f8d20f97c, type: 3}

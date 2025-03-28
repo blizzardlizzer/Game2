@@ -6,7 +6,7 @@ public class ObjectFallController : MonoBehaviour
 {
     public float waitTime = 1.5f;
     public GameObject fallingObject;
-    public float fallSpeed = 2f;
+    public float fallSpeed;
     public Sprite[] asteroidSprites;
     public Sprite fastAsteroidSprite;
 
@@ -31,7 +31,7 @@ public class ObjectFallController : MonoBehaviour
             {
                 if (selectedSprite == fastAsteroidSprite)
                 {
-                    fallingScript.fallSpeed = 10f;
+                    fallingScript.fallSpeed += 4f;
                 }
                 else
                 {
