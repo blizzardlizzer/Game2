@@ -4,11 +4,11 @@ using UnityEngine;
 public class ObjectFallController : MonoBehaviour
 {
     [Header("Spawning Settings")]
-    public GameObject[] fallingPrefabs; 
+    public GameObject[] fallingPrefabs;
     public float initialMinWait = 1.5f;
     public float initialMaxWait = 3.0f;
-    public float difficultyRampRate = 0.05f; 
-    public float minWaitLimit = 0.5f; 
+    public float difficultyRampRate = 0.05f;
+    public float minWaitLimit = 0.5f;
 
     private float currentMinWait;
     private float currentMaxWait;
@@ -49,10 +49,5 @@ public class ObjectFallController : MonoBehaviour
         int randomIndex = Random.Range(0, fallingPrefabs.Length);
 
         GameObject obj = Instantiate(fallingPrefabs[randomIndex], spawnPosition, Quaternion.identity);
-
-        if (obj.TryGetComponent<FallingObject>(out FallingObject falling))
-        {
-            falling.fallSpeed += Random.Range(-2f, 2f);
-        }
     }
 }

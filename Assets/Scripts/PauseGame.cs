@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 public class PauseGame : MonoBehaviour
 {
     private bool isPaused = false;
+    public TextMeshProUGUI centerText;
 
     void Update()
     {
@@ -21,12 +23,14 @@ public class PauseGame : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
+        centerText.text = "GAME PAUSED";
         Time.timeScale = 0f;
     }
 
     public void Resume()
     {
         isPaused = false;
+        centerText.text = "";
         Time.timeScale = 1f;
     }
 

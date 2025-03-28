@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FallingObject : MonoBehaviour
 {
-    public float fallSpeed = 8f;
+    public float baseFallSpeed = 8f;
+    public float accelerationOverTime = 0.2f;
     public List<Sprite> possibleSprites;
     public Sprite fastAsteroidSprite;
     public Color fastAsteroidTrailColor = Color.yellow;
@@ -14,11 +15,15 @@ public class FallingObject : MonoBehaviour
     private float spinSpeed;
     public ParticleSystem particles;
     private TrailRenderer trail;
+    private float spawnTime;
+    private float fallSpeed;
 
     protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
+        spawnTime = Time.time;
+        fallSpeed += Random.Range(2f, -2f);
 
         if (particles != null)
         {
@@ -37,6 +42,8 @@ public class FallingObject : MonoBehaviour
             Sprite chosen = options[Random.Range(0, options.Count)];
             spriteRenderer.sprite = chosen;
 
+            fallSpeed = baseFallSpeed + (Time.timeSinceLevelLoad * accelerationOverTime);
+
             if (chosen == fastAsteroidSprite)
             {
                 fallSpeed += 7f;
@@ -46,6 +53,10 @@ public class FallingObject : MonoBehaviour
                     trail.endColor = fastAsteroidTrailColor;
                 }
             }
+        }
+        else
+        {
+            fallSpeed = baseFallSpeed + (Time.timeSinceLevelLoad * accelerationOverTime);
         }
 
         transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
@@ -72,4 +83,7 @@ public class FallingObject : MonoBehaviour
 
         Destroy(gameObject);
     }
-} 
+    public float GetFallSpeed(){
+        return fallSpeed;
+    }
+}

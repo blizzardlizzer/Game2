@@ -4964,7 +4964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218432621066b3b4a8ecc8ae2143e4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 5
+  baseFallSpeed: 5
+  accelerationOverTime: 0.2
   possibleSprites:
   - {fileID: -4774772973586904099, guid: ec03d27e6dc0b7b46810ca9f8d20f97c, type: 3}
   - {fileID: 7040748835550671450, guid: 05d39be17c3f0ae4ab19856e72ed7671, type: 3}
