@@ -7,16 +7,18 @@ public class FallingObject : MonoBehaviour
     public float fallSpeed = 8f;
     public List<Sprite> possibleSprites;
     public Sprite fastAsteroidSprite;
+    public Color fastAsteroidTrailColor = Color.yellow;
 
     private SpriteRenderer spriteRenderer;
     private Vector3 fallDirection;
     private float spinSpeed;
-    private ParticleSystem particles;
+    public ParticleSystem particles;
+    private TrailRenderer trail;
 
     protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        particles = GetComponentInChildren<ParticleSystem>(true);
+        trail = GetComponent<TrailRenderer>();
 
         if (particles != null)
         {
@@ -37,7 +39,12 @@ public class FallingObject : MonoBehaviour
 
             if (chosen == fastAsteroidSprite)
             {
-                fallSpeed += 4f;
+                fallSpeed += 7f;
+                if (trail != null)
+                {
+                    trail.startColor = fastAsteroidTrailColor;
+                    trail.endColor = fastAsteroidTrailColor;
+                }
             }
         }
 
